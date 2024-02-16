@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"errors"
+	"fmt"
 
 	"goproject.com/eventplanner-io/api/internal/models"
 	"goproject.com/eventplanner-io/api/internal/platform/utils"
@@ -26,7 +27,7 @@ func NewUsersRepository(db *gorm.DB) *usersRepository {
 
 func (ur *usersRepository) Get(params *models.User) (*models.User, error) {
 	var user models.User
-	err := ur.db.Model(&user).Where(params).FirstOrInit(&user).Error
+	err := ur.db.Model(&user).Where(params).First(&user).Error
 
 	if err != nil {
 		return nil, err
@@ -37,7 +38,7 @@ func (ur *usersRepository) Get(params *models.User) (*models.User, error) {
 
 func (ur *usersRepository) Save(user *models.User) error {
 	hashedPassword, err := utils.HashPassword(user.Password)
-
+	fmt.Println(hashedPassword)
 	if err != nil {
 		return err
 	}

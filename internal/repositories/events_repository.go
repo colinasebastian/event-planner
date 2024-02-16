@@ -35,7 +35,7 @@ func (er *eventsrepository) GetAll() ([]models.Event, error) {
 
 func (er *eventsrepository) GetByID(id int64) (*models.Event, error) {
 	var event models.Event
-	err := er.db.Preload("User").Model(&event).Where("id = ?", id).FirstOrInit(&event).Error
+	err := er.db.Preload("User").Model(&event).Where("id = ?", id).First(&event).Error
 
 	if err != nil {
 		return nil, err

@@ -9,7 +9,8 @@ import (
 
 func Run() {
 	// Agregar una estructura de DPI
-	db, err := sqlite.Connect()
+	dbName := "eventplanner.db"
+	db, err := sqlite.Connect(dbName)
 	if err != nil {
 		panic(("Failed to connect to database"))
 	}
